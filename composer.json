@@ -1,0 +1,17 @@
+{
+    "name": "roma/cms-test",
+    "authors": [
+        {
+            "name": "polomanij",
+            "email": "polomanijmail@gmail.com"
+        }
+    ],
+    "require": {},
+    "autoload": {
+        "psr-4": {
+            "Engine\\": "engine",
+            "Cms\\": "cms",
+            "Engine\\DI\\": "engine\\DI\\"
+        }
+    }
+}
