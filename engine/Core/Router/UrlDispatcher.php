@@ -59,16 +59,27 @@ class UrlDispatcher
         if (strpos($pattern, '(') === false) {
             return $pattern;
         }
-        
-        preg_replace_callback('#\((\w+):(\w+)\)#',[$this, 'replacePattern'] ,$pattern);
+
+        return preg_replace_callback('#\((\w+):(\w+)\)#',[$this, 'replacePattern'] ,$pattern);
     }
 
     private function replacePattern($matches)
     {
         return '(?<' . $matches[1] . '>' . strtr($matches[2], $this->patterns) . ')';
     }
+    
+    private function processParam($parameters)
+    {
+        foreach ($parameters as $key => $value) {
+            if (is_int($key)) {
+                unset($parameters[$key]);
+            }
+        }
+         
+        return $parameters;
+    }
 
-     /**
+    /**
      * 
      * @param $method
      * @param $uri
@@ -81,7 +92,6 @@ class UrlDispatcher
         if (array_key_exists($uri, $routes)) {
             return new DispatchedRoute($routes[$uri]);
         }
-
         return $this->doDispatch($method, $uri);
     }
 
@@ -94,13 +104,11 @@ class UrlDispatcher
     private function doDispatch($method, $uri)
     {
         foreach ($this->routes($method) as $route => $controller) {
-            
+
             $pattern = '#^' . $route . '$#s';
 
             if (preg_match($pattern, $uri, $parameters)) {
-                echo $parameters;
-                echo 'sas';
-                return new DispatchedRoute($controller, $parameters);
+                return new DispatchedRoute($controller, $this->processParam($parameters));
             }
         }
     }

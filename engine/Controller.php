@@ -10,10 +10,12 @@ abstract class Controller
      */
     protected $di;
     protected $db;
+    protected $view;
             
     function __construct(\Engine\DI\DI $di)
     {
         $this->di = $di;
+        $this->view = $this->di->get('view');
     }
 
 }

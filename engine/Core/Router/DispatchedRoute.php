@@ -2,20 +2,24 @@
 
 namespace Engine\Core\Router;
 
-class DispatchedRoute {
+class DispatchedRoute
+{
     private $controller;
     private $parameters;
     
     function __construct($controller, $parameters = [])
+    {
         $this->controller = $controller;
         $this->parameters = $parameters;
     }
 
-    function getController() {
+    function getController()
+    {
         return $this->controller;
     }
 
-    function getParameters() {
+    function getParameters()
+    {
         return $this->parameters;
     }
 }
