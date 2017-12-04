@@ -54,6 +54,11 @@ class UrlDispatcher
         $this->routes[strtoupper($method)][$convert] = $controller;
     }
     
+    /**
+     * 
+     * @param type $pattern
+     * @return type
+     */
     private function convertPattern($pattern)
     {
         if (strpos($pattern, '(') === false) {
@@ -63,6 +68,11 @@ class UrlDispatcher
         return preg_replace_callback('#\((\w+):(\w+)\)#',[$this, 'replacePattern'] ,$pattern);
     }
 
+    /**
+     * 
+     * @param type $matches
+     * @return type
+     */
     private function replacePattern($matches)
     {
         return '(?<' . $matches[1] . '>' . strtr($matches[2], $this->patterns) . ')';

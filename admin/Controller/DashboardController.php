@@ -1,11 +1,10 @@
 <?php
 namespace Admin\Controller;
 
-/**
- * Description of DashboardController
- *
- * @author Roma
- */
-class DashboardController {
-    //put your code here
+class DashboardController extends AdminController
+{
+    public function index()
+    {
+        $this->view->render('dashboard');
+    }
 }
